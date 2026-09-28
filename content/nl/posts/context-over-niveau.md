@@ -1,6 +1,11 @@
 ---
 title: Context over niveau
 date: 2026-04-25
+author: Mindwrapper
+lang: nl
+translation: en/posts/context-over-level
+aliases:
+  - posts/Context-over-niveau
 tags:
   - obsidian
   - claudecode
@@ -14,4 +19,4 @@ Voordeel daarvan is dat het antwoord niet generiek is maar afgestemd om mijn niv
 
 Claude gaf me daarbij een aantal voorbeelden van onderwerpen en mijn kennisniveau. Als Claude het al weet waarom moet ik het dan toevoegen? Gevraagd of Claude op basis van mijn chats een prompt profiel wilde opmaken met mijn expertiseniveau per domein. 
 Dit profiel wordt nu bij iedere chat automatisch meegestuurd met mijn prompt. 
-Voordeel is dat antwoorden zijn afgestemd op mijn kennisniveau en dat dit automatisch wordt meegegeven. 
+Voordeel is dat antwoorden zijn afgestemd op mijn kennisniveau en dat dit automatisch wordt meegegeven.
