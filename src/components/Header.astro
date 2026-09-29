@@ -12,7 +12,16 @@ const target = (to: Lang) => (to === lang ? here : (alternate ?? `/${to}/`))
 ---
 
 <header class="wrap site-header">
-  <a class="wordmark" href={`/${lang}/`}>mind<span>wrapper</span></a>
+  <a class="wordmark" href={`/${lang}/`}>
+    <svg class="mark" viewBox="0 8 100 100" aria-hidden="true">
+      <g fill="none" stroke-width="7" stroke-linecap="round">
+        <path class="wrap" d="M 12 70 C 4 40, 60 20, 92 44"></path>
+        <path class="ink" d="M35.75 47.68V69.45L39.43 70.81V72H23.22V70.81L27.44 69.34V48.69Q26.81 47.93 25.79 47.2Q24.78 46.48 23 45.59V44.61L33.99 40.94H34.77ZM54.59 50.29V69.45L58.27 70.81V72H42.6V70.81L46.3 69.45V51.7Q46.3 50.08 45.71 49.06Q45.12 48.03 43.99 47.54Q42.86 47.04 41.21 47.04Q39.34 47.04 37.62 47.62Q35.91 48.2 34.84 49.12L33.92 47.99Q35.99 45.84 37.62 44.48Q39.26 43.12 40.67 42.37Q42.09 41.63 43.47 41.34Q44.86 41.05 46.41 41.05Q49.25 41.05 51.06 42.18Q52.86 43.31 53.73 45.38Q54.59 47.45 54.59 50.29ZM73.45 51.04V69.34L77.71 70.81V72H61.46V70.81L65.15 69.45V51.7Q65.15 50.07 64.56 49.05Q63.97 48.03 62.84 47.54Q61.71 47.04 60.06 47.04Q58.19 47.04 56.47 47.62Q54.76 48.2 53.69 49.12L52.77 47.99Q54.84 45.84 56.47 44.48Q58.11 43.12 59.53 42.37Q60.94 41.63 62.33 41.34Q63.71 41.05 65.27 41.05Q69.49 41.05 71.47 43.58Q73.45 46.11 73.45 51.04Z"></path>
+        <path class="wrap" d="M 92 44 C 104 56, 70 86, 30 86"></path>
+      </g>
+    </svg>
+    <span class="word">mind<span>wrapper</span></span>
+  </a>
   <nav>
     <a href={`/${lang}/posts/`}>{l.all}</a>
     <a href={l.aboutPath}>{l.about}</a>
@@ -22,6 +31,7 @@ const target = (to: Lang) => (to === lang ? here : (alternate ?? `/${to}/`))
           <a
             href={target(to)}
             hreflang={to}
+            aria-label={to === "nl" ? "Nederlands" : "English"}
             class={to === lang ? "active" : ""}
             aria-current={to === lang ? "page" : undefined}
           >
@@ -43,7 +53,7 @@ const target = (to: Lang) => (to === lang ? here : (alternate ?? `/${to}/`))
                 <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6" />
               </svg>
             )}
-            {to.toUpperCase()}
+            <span class="code">{to.toUpperCase()}</span>
           </a>
         ))
       }
@@ -91,7 +101,11 @@ const target = (to: Lang) => (to === lang ? here : (alternate ?? `/${to}/`))
     color: var(--ink);
     letter-spacing: -0.01em;
   }
-  .wordmark span { color: var(--accent); font-style: italic; font-weight: 500; }
+  .wordmark { display: inline-flex; align-items: center; gap: 0.45rem; }
+  .word span { color: var(--accent); font-style: italic; font-weight: 500; }
+  .mark { width: 2.6rem; height: 2.6rem; flex-shrink: 0; }
+  .mark .wrap { stroke: var(--accent); }
+  .mark .ink { fill: var(--ink); stroke: none; }
   nav { display: flex; align-items: center; gap: 1.3rem; flex-wrap: wrap; justify-content: flex-end; }
   nav > a { color: var(--ink-soft); }
   nav > a:hover { color: var(--accent); }
@@ -126,7 +140,11 @@ const target = (to: Lang) => (to === lang ? here : (alternate ?? `/${to}/`))
   .theme-toggle:hover { color: var(--accent); }
   @media (max-width: 640px) {
     .site-header { padding-top: 1rem; padding-bottom: 1rem; }
-    nav { gap: 0.8rem; }
-    nav > a:first-child { display: none; }
+    nav { gap: 0.7rem; flex-wrap: nowrap; }
+    nav > a:not(.icon) { display: none; }
+    .wordmark { font-size: 1.3rem; gap: 0.3rem; }
+    .mark { width: 2.1rem; height: 2.1rem; }
+    .lang-switch .code { display: none; }
+    .lang-switch a { padding: 0.35rem 0.6rem; }
   }
 </style>

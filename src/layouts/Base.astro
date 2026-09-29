@@ -23,6 +23,9 @@ const other = lang === "nl" ? "en" : "nl"
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     {alternate && <link rel="alternate" hreflang={other} href={alternate} />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="alternate" type="application/rss+xml" title="mindwrapper" href="/index.xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -46,6 +49,7 @@ const other = lang === "nl" ? "en" : "nl"
     </main>
     <footer class="wrap site-footer meta">
       <span>mindwrapper</span>
+      <a href={lang === "nl" ? "/nl/over" : "/en/about"}>{lang === "nl" ? "Over" : "About"}</a>
       <a href="https://github.com/mindwrapp3r">GitHub</a>
       <a href="/index.xml">RSS</a>
     </footer>
