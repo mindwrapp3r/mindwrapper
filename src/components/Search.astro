@@ -1,0 +1,50 @@
+---
+import Base from "../layouts/Base.astro"
+import { t, type Lang } from "../lib/site"
+
+interface Props {
+  lang: Lang
+}
+const { lang } = Astro.props
+const l = t[lang]
+---
+
+<Base title={`${l.search} · mindwrapper`} lang={lang} alternate={t[lang === "nl" ? "en" : "nl"].searchPath}>
+  <section class="narrow">
+    <h1>{l.search}</h1>
+    <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+    <div id="search"></div>
+  </section>
+  <script is:inline src="/pagefind/pagefind-ui.js"></script>
+  <script is:inline define:vars={{ lang }}>
+    const ui = new PagefindUI({
+      element: "#search",
+      showSubResults: true,
+      showImages: false,
+      // Same clean URLs as the rest of the site: /nl/posts/slug, not slug.html
+      processResult: (r) => {
+        const clean = (u) => u.replace(/\.html(?=#|$)/, "")
+        r.url = clean(r.url)
+        r.sub_results?.forEach((s) => (s.url = clean(s.url)))
+        return r
+      },
+      translations: lang === "nl" ? { placeholder: "Zoek in de posts" } : { placeholder: "Search the posts" },
+    })
+    // /nl/zoeken?q=jev opens with that search filled in
+    const q = new URLSearchParams(location.search).get("q")
+    if (q) ui.triggerSearch(q)
+  </script>
+</Base>
+
+<style is:global>
+  h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 400; margin: 3rem 0 2rem; }
+  #search {
+    --pagefind-ui-primary: var(--link);
+    --pagefind-ui-text: var(--ink);
+    --pagefind-ui-background: var(--paper-raised);
+    --pagefind-ui-border: var(--rule);
+    --pagefind-ui-tag: var(--paper);
+    --pagefind-ui-font: var(--sans);
+    --pagefind-ui-border-radius: 6px;
+  }
+</style>

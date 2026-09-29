@@ -7,7 +7,8 @@ interface Props {
 }
 const { lang, alternate } = Astro.props
 const l = t[lang]
-const target = (to: Lang) => (to === lang ? Astro.url.pathname : (alternate ?? `/${to}/`))
+const here = Astro.url.pathname.replace(/\.html$/, "")
+const target = (to: Lang) => (to === lang ? here : (alternate ?? `/${to}/`))
 ---
 
 <header class="wrap site-header">
@@ -47,6 +48,12 @@ const target = (to: Lang) => (to === lang ? Astro.url.pathname : (alternate ?? `
         ))
       }
     </span>
+    <a class="icon" href={l.searchPath} aria-label={l.search} title={l.search}>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8" />
+        <path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+      </svg>
+    </a>
     <button class="theme-toggle" type="button" aria-label={l.theme} title={l.theme}>
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8" />
@@ -114,7 +121,8 @@ const target = (to: Lang) => (to === lang ? Astro.url.pathname : (alternate ?? `
     padding: 0.2rem;
     display: inline-flex;
   }
-  .theme-toggle svg { width: 1.3rem; height: 1.3rem; }
+  .theme-toggle svg, .icon svg { width: 1.3rem; height: 1.3rem; }
+  .icon { display: inline-flex; color: var(--ink-soft); }
   .theme-toggle:hover { color: var(--accent); }
   @media (max-width: 640px) {
     .site-header { padding-top: 1rem; padding-bottom: 1rem; }

@@ -6,10 +6,10 @@ export type Entry = CollectionEntry<"blog">
 export const t = {
   nl: {
     heroName: "Mindwrapper",
-    hero: "korte posts over werken met AI, en wat het echt oplevert.",
-    sub: "Dingen waar ik mijn hoofd omheen probeer te krijgen: tools bouwen, Obsidian automatiseren, en meten wat werkt.",
-    subNote: "Geschreven door AI, gekozen en gecontroleerd door Mindwrapper.",
-    why: "Waarom zo?",
+    hero: "korte posts over experimenteren met AI en wat het oplevert.",
+    sub: "Dingen waar ik mijn verstand omheen probeer te vouwen: tools bouwen, Obsidian automatiseren en meten wat werkt.",
+    subNote: "Geschreven met behulp van AI.",
+    why: "Meer info hierover",
     latest: "Posts",
     latestSub: "Het probleem, wat we deden, en wat je zelf kunt proberen",
     all: "Alle posts",
@@ -26,13 +26,15 @@ export const t = {
     locale: "nl-NL",
     post: "Post",
     theme: "Donker of licht",
+    search: "Zoeken",
+    searchPath: "/nl/zoeken",
   },
   en: {
     heroName: "Mindwrapper",
-    hero: "short posts about working with AI, and what it really gets you.",
-    sub: "Things I'm wrapping my mind around: building tools, automating Obsidian, and measuring what works.",
-    subNote: "Written by AI, chosen and reviewed by Mindwrapper.",
-    why: "Why like this?",
+    hero: "short posts about experimenting with AI and what it gets you.",
+    sub: "Things I'm trying to wrap my mind around: building tools, automating Obsidian and measuring what works.",
+    subNote: "Written with the help of AI.",
+    why: "More about this",
     latest: "Posts",
     latestSub: "The problem, what we did, and what you can try yourself",
     all: "All posts",
@@ -49,6 +51,8 @@ export const t = {
     locale: "en-GB",
     post: "Post",
     theme: "Dark or light",
+    search: "Search",
+    searchPath: "/en/search",
   },
 } as const
 
