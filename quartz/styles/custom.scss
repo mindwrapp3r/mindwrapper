@@ -1,3 +1,17 @@
 @use "./base.scss";
 
 // put your custom CSS here!
+
+// Homepage: posts first, the intro sits small and muted underneath
+body[data-slug="index"] article.popover-hint {
+  font-size: 0.85rem;
+  color: var(--gray);
+  border-top: 1px solid var(--lightgray);
+  padding-top: 1rem;
+  margin-top: 1rem;
+
+  p,
+  li {
+    color: var(--gray);
+  }
+}

@@ -2,25 +2,28 @@ import { QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import { classNames } from "../util/lang"
 import { FullSlug, resolveRelative } from "../util/path"
 
-// Shows who wrote a post, who reviewed it, and links to code and the other language.
-// Driven by frontmatter: author, curated, translated_by, lang, translation, repo.
+// Shows who did what on a post, plus links to code and the other language.
+// Driven by frontmatter: author, curated (chose the topic), edited, checked,
+// translated_by, lang, translation, repo. Explained on nl/over and en/about.
 
 const labels = {
   nl: {
-    ai: "Geschreven door AI",
-    curated: (who: string) => `samengesteld en gecontroleerd door ${who}`,
-    human: (who: string) => `Geschreven door ${who}`,
-    translated: "vertaald door AI",
+    written: (who: string) => `Geschreven door ${who}`,
+    curated: (who: string) => `onderwerp gekozen door ${who}`,
+    edited: (who: string) => `geredigeerd door ${who}`,
+    checked: (who: string) => `gecheckt door ${who}`,
+    translated: (who: string) => `vertaald door ${who}`,
     why: "waarom?",
     about: "nl/over",
     repo: "Code op GitHub",
     translation: "Read in English",
   },
   en: {
-    ai: "Written by AI",
-    curated: (who: string) => `curated and reviewed by ${who}`,
-    human: (who: string) => `Written by ${who}`,
-    translated: "translated by AI",
+    written: (who: string) => `Written by ${who}`,
+    curated: (who: string) => `topic chosen by ${who}`,
+    edited: (who: string) => `edited by ${who}`,
+    checked: (who: string) => `checked by ${who}`,
+    translated: (who: string) => `translated by ${who}`,
     why: "why?",
     about: "en/about",
     repo: "Code on GitHub",
@@ -30,7 +33,7 @@ const labels = {
 
 export default (() => {
   function Provenance({ fileData, displayClass }: QuartzComponentProps) {
-    const fm = fileData.frontmatter ?? {}
+    const fm = (fileData.frontmatter ?? {}) as Record<string, unknown>
     const author = fm.author as string | undefined
     if (!author) return null
 
@@ -38,31 +41,29 @@ export default (() => {
     const t = labels[lang]
     const slug = fileData.slug!
     const isAi = author.toLowerCase() === "ai"
-    const curated = fm.curated as string | undefined
-    const repo = fm.repo as string | undefined
-    const translation = fm.translation as string | undefined
-    const translatedByAi = String(fm.translated_by ?? "").toLowerCase() === "ai"
+    const field = (key: string) => {
+      const value = fm[key]
+      return typeof value === "string" && value.trim() !== "" ? value.trim() : undefined
+    }
+    const repo = field("repo")
+    const translation = field("translation")
+
+    const roles = [
+      [t.curated, field("curated")],
+      [t.edited, field("edited")],
+      [t.checked, field("checked")],
+      [t.translated, field("translated_by")],
+    ] as const
+    const extras = roles.filter(([, who]) => who).map(([label, who]) => label(who!))
 
     return (
       <div class={classNames(displayClass, "provenance", isAi ? "provenance-ai" : "provenance-human")}>
         <p>
-          {isAi ? (
-            <>
-              <strong>{t.ai}</strong>
-              {curated && <> · {t.curated(curated)}</>}{" "}
-              <a href={resolveRelative(slug, t.about as FullSlug)}>({t.why})</a>
-            </>
-          ) : (
-            <>
-              <strong>{t.human(author)}</strong>
-              {translatedByAi && (
-                <>
-                  {" "}
-                  · {t.translated} <a href={resolveRelative(slug, t.about as FullSlug)}>({t.why})</a>
-                </>
-              )}
-            </>
-          )}
+          <strong>{t.written(author)}</strong>
+          {extras.map((text) => (
+            <> · {text}</>
+          ))}{" "}
+          <a href={resolveRelative(slug, t.about as FullSlug)}>({t.why})</a>
         </p>
         {(repo || translation) && (
           <p class="provenance-links">
