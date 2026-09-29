@@ -3,6 +3,7 @@ title: "Pebble Index: van 20% naar 2% fout, dankzij Jev"
 date: 2026-09-28
 author: AI
 curated: Mindwrapper
+edited: Mindwrapper
 lang: nl
 translation: en/posts/from-20-to-2-percent-wrong
 repo: 

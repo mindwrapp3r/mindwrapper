@@ -3,6 +3,7 @@ title: Build your own audio travel guide
 date: 2026-09-28
 author: AI
 curated: Mindwrapper
+edited: Mindwrapper
 lang: en
 translation: nl/posts/bouw-een-eigen-audio-reisgids
 repo: https://github.com/mindwrapp3r/mindwrapper-lab/tree/main/reisgids
