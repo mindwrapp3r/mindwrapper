@@ -4,7 +4,7 @@ lang: nl
 translation: en/about
 ---
 
-Ik ben Michael, ook bekend als Mindwrapper. Ik werk in glasvezel connectivity. In dit blog houd ik bij wat mij bezighoudt. Dat zijn verschillende onderwerpen, maar de laatste tijd ligt de focus op AI: tools bouwen, Obsidian-workflows automatiseren en uitproberen wat wel en niet werkt. AI is volop in ontwikkeling en niemand weet nog precies hoe het werkt, dus experimenteren is de beste en leukste manier om er meer over te leren. Dit blog laat zien hoe ik dat probeer. In het Engels heet dat *wrapping your mind around something*. Een even mooie Nederlandse uitdrukking ben ik nog niet tegengekomen; "ergens je hoofd omheen krijgen" komt in de buurt, maar klinkt minder.
+Ik ben Michael, ook bekend als Mindwrapper. Ik werk in glasvezel connectivity. In dit blog houd ik bij wat mij bezighoudt. Dat zijn verschillende onderwerpen, maar de laatste tijd ligt de focus op AI: tools bouwen, Obsidian-workflows automatiseren en uitproberen wat wel en niet werkt. AI is volop in ontwikkeling en niemand weet nog precies hoe het werkt, dus experimenteren is de beste en leukste manier om er meer over te leren. Dit blog laat zien hoe ik dat probeer. In het Engels heet dat *wrapping your mind around something*. Een even mooie Nederlandse uitdrukking ben ik nog niet tegengekomen, dus vertaal ik het letterlijk: je verstand ergens omheen vouwen.
 
 ## Wie schrijft dit
 

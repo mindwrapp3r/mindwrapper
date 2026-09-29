@@ -4,7 +4,7 @@ lang: en
 translation: nl/over
 ---
 
-I'm Michael, also known as Mindwrapper. I work in fibre-optic connectivity. This blog is where I keep track of what's on my mind. That covers different topics, but lately the focus is on AI: building tools, automating Obsidian workflows, and trying out what does and doesn't work. AI is developing fast and nobody knows exactly how it works yet, so experimenting is the best and most fun way to learn more about it. This blog shows how I go about that. English has a nice expression for it: *wrapping your mind around something*. I haven't found an equally good one in Dutch; "ergens je hoofd omheen krijgen" (getting your head around something) comes close, but doesn't sound as good.
+I'm Michael, also known as Mindwrapper. I work in fibre-optic connectivity. This blog is where I keep track of what's on my mind. That covers different topics, but lately the focus is on AI: building tools, automating Obsidian workflows, and trying out what does and doesn't work. AI is developing fast and nobody knows exactly how it works yet, so experimenting is the best and most fun way to learn more about it. This blog shows how I go about that. English has a nice expression for it: *wrapping your mind around something*. I haven't found an equally good one in Dutch, so on the Dutch side of this blog I translate it literally: "je verstand ergens omheen vouwen", folding your mind around something.
 
 ## Who writes this
 
