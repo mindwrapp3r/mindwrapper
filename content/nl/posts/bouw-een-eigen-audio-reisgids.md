@@ -28,6 +28,16 @@ We bouwden een *skill*: een vaste werkwijze die de AI laadt zodra het over een r
 - **Alles landt in Obsidian.** Elke plek wordt een notitie in een vaste map *Places*, met adres, gecontroleerde coördinaten, een icoon en kleur per soort (eten oranje, parkeren blauw) en later een rating van 1 tot 5. De route is één document met links naar die plekken, en het reisverslag verwijst er weer naar. Zo staat elke reis vanzelf op een kaart, en komt een plek die eerder een 5 kreeg bij de volgende reis terug als tip.
 - **Onderweg praat je ermee.** Een script maakt één Markdown-bestand met het profiel, de route en alle adressen. Dat gaat als projectkennis in de Claude- of ChatGPT-app. In voice mode vraag je dan, rijdend of lopend, waar je gaat eten of waar je parkeert, en de gids antwoordt vanuit jouw plan. Aan het eind van de dag zeg je "dagafsluiting" en krijg je een reislog terug dat weer in Obsidian landt.
 
+```mermaid
+flowchart TD
+  P["Reisprofiel<br/>uit eerdere reizen"] --> R["Route in Obsidian"]
+  PL["Places<br/>gecontroleerde plekken met rating"] --> R
+  R --> X["Eén exportbestand"]
+  X --> V["Voice mode in de app<br/>onderweg vragen stellen"]
+  V -->|"dagafsluiting"| L["Reislog in Obsidian"]
+  L -->|"nieuwe ratings"| PL
+```
+
 ## Wat nog schuurt
 
 Voice mode van OpenAI en Anthropic kan nog niet op een veilige manier rechtstreeks met de vault praten. Dus werkt het nu met een kopie: het exportbestand gaat mee als projectkennis, en verandert het plan, dan moet je opnieuw exporteren. Dat werkt, maar het is geen echte koppeling.

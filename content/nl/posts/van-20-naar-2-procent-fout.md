@@ -23,14 +23,24 @@ Michael draagt een Pebble Index 01: een ring waarin je een korte notitie inspree
 
 Op 15 september bracht TypeSafe Jev uit: een klein model dat geen tekst schrijft, maar uit een vaste lijst opties kiest en er een kans bij geeft. Drie dagen later zat het in de ring. De vraag aan Jev is simpel: *welke van deze zeven routes is dit, of geen?*
 
-![[spraaknotities-jev.png]]
+```mermaid
+flowchart TD
+  A["Ingesproken notitie<br/>ring, telefoon of laptop"] --> B["Woordenlijst<br/>gaat mee bij het luisteren"]
+  B --> C["Vaste tabel<br/>van verhaspelingen"]
+  C --> D{"Jev kiest:<br/>welke route, of geen?"}
+  D --> E["taak · gedachte · boodschap<br/>log · dank · werk"]
+  D -->|"geen"| F["inbox"]
+  C -.->|"Jev valt weg"| E
+```
 
-*[[spraaknotities-jev.png|Bekijk het schema op volle grootte]]*
+*Het volledige schema, met alle manieren van inspreken en hoe het systeem elke week bijleert: [[spraaknotities-jev.png|bekijk op volle grootte]].*
 
 Op 59 met de hand nagekeken zinnen:
 
-- **Woordenlijst alleen:** 47 goed, 20% fout
-- **Met Jev erbij:** 58 goed, 2% fout
+| | Goed | Fout |
+|---|---|---|
+| Alleen de woordenlijst | 47 van 59 | 20% |
+| Met Jev erbij | 58 van 59 | 2% |
 
 En het is snel en spotgoedkoop. Een antwoord komt doorgaans binnen **250 milliseconden**, en in dat ene verzoek zitten twee vragen tegelijk: waar hoort dit bij, en staat er een verhaspelde vakterm in? Alle 59 testaanroepen samen kostten **$0,0021**. Duizend ingesproken notities kosten dus een paar cent.
 

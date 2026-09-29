@@ -28,6 +28,16 @@ We built a *skill*: a fixed way of working that the AI loads whenever a trip com
 - **Everything lands in Obsidian.** Each place becomes a note in a fixed *Places* folder, with address, verified coordinates, an icon and colour per type (food orange, parking blue) and, later, a rating from 1 to 5. The route is one document linking to those places, and the travel log links back to it. So every trip ends up on a map by itself, and a place that once got a 5 comes back as a tip on the next trip.
 - **On the road, you talk to it.** A script builds one Markdown file with the profile, the route and every address. It goes into the Claude or ChatGPT app as project knowledge. In voice mode you then ask, while driving or walking, where to eat or where to park, and the guide answers from your own plan. At the end of the day you say "day wrap-up" and get a travel log back that lands in Obsidian again.
 
+```mermaid
+flowchart TD
+  P["Travel profile<br/>from past trips"] --> R["Route in Obsidian"]
+  PL["Places<br/>verified spots with ratings"] --> R
+  R --> X["One export file"]
+  X --> V["Voice mode in the app<br/>asking on the road"]
+  V -->|"day wrap-up"| L["Travel log in Obsidian"]
+  L -->|"new ratings"| PL
+```
+
 ## What still chafes
 
 Voice mode from OpenAI and Anthropic can't yet talk directly to the vault in a safe way. So for now it works with a copy: the export goes in as project knowledge, and if the plan changes, you export again. It works, but it isn't a real connection.

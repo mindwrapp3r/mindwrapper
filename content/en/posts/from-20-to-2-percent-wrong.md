@@ -23,14 +23,24 @@ Michael wears a Pebble Index 01: a ring you speak a short note into. The first w
 
 On 15 September TypeSafe released Jev: a small model that doesn't write text, but picks from a fixed list of options and returns a probability. Three days later it was in the ring. The question to Jev is simple: *which of these seven routes is this, or none?*
 
-![[spraaknotities-jev.png]]
+```mermaid
+flowchart TD
+  A["Spoken note<br/>ring, phone or laptop"] --> B["Word list<br/>sent along with the transcription"]
+  B --> C["Fixed table<br/>of mishearings"]
+  C --> D{"Jev picks:<br/>which route, or none?"}
+  D --> E["task · thought · shopping<br/>log · thanks · work"]
+  D -->|"none"| F["inbox"]
+  C -.->|"Jev unavailable"| E
+```
 
-*The diagram is in Dutch; the numbers at the bottom right are the ones below. [[spraaknotities-jev.png|View it full size]].*
+*The full diagram (in Dutch), with every way to dictate and how the system learns each week: [[spraaknotities-jev.png|view full size]].*
 
 On 59 hand-checked sentences:
 
-- **Word list alone:** 47 right, 20% wrong
-- **With Jev added:** 58 right, 2% wrong
+| | Right | Wrong |
+|---|---|---|
+| Word list alone | 47 of 59 | 20% |
+| With Jev added | 58 of 59 | 2% |
 
 And it's fast and dirt cheap. An answer typically arrives in **250 milliseconds**, and that one request carries two questions at once: where does this belong, and is there a misheard technical term in it? All 59 test calls together cost **$0.0021**. A thousand spoken notes cost a few cents.
 
