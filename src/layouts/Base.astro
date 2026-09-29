@@ -18,6 +18,8 @@ const other = lang === "nl" ? "en" : "nl"
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- The site has its own light and dark theme; keeps Chrome's auto-dark from overriding the toggle -->
+    <meta name="color-scheme" content="light dark" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     {alternate && <link rel="alternate" hreflang={other} href={alternate} />}
