@@ -1,0 +1,43 @@
+.blog-posts {
+  margin: 1.5rem 0 2rem;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    border-top: 1px solid var(--lightgray);
+    padding: 1.25rem 0;
+  }
+
+  time {
+    color: var(--gray);
+    font-size: 0.85rem;
+  }
+
+  h3 {
+    margin: 0.35rem 0;
+    font-size: 1.3rem;
+  }
+
+  h3 a {
+    background-color: transparent;
+  }
+
+  article p {
+    margin: 0.3rem 0 0.55rem;
+    color: var(--darkgray);
+    line-height: 1.5;
+  }
+
+  .blog-translation,
+  .blog-all-posts {
+    font-size: 0.9rem;
+  }
+}
