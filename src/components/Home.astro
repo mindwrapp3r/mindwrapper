@@ -1,0 +1,65 @@
+---
+import Base from "../layouts/Base.astro"
+import PostCard from "./PostCard.astro"
+import { postsFor, t, type Lang } from "../lib/site"
+
+interface Props {
+  lang: Lang
+}
+const { lang } = Astro.props
+const l = t[lang]
+const posts = await postsFor(lang)
+const other = lang === "nl" ? "en" : "nl"
+---
+
+<Base title="mindwrapper" lang={lang} description={l.sub} alternate={`/${other}/`}>
+  <section class="wrap hero">
+    <h1><strong>{l.heroName}</strong>: {l.hero}</h1>
+    <p class="sub">{l.sub}</p>
+    <p class="note">{l.subNote} <a href={l.aboutPath}>{l.why} →</a></p>
+  </section>
+
+  <section class="wrap">
+    <h2 class="section-title">{l.latest}</h2>
+    <p class="section-sub">{l.latestSub}</p>
+    <div class="grid">
+      {posts.slice(0, 6).map((post) => <PostCard post={post} lang={lang} />)}
+    </div>
+    {posts.length > 6 && <a class="all meta" href={`/${lang}/posts/`}>{l.all} →</a>}
+  </section>
+</Base>
+
+<style>
+  .hero { padding-top: 4.5rem; padding-bottom: 4rem; }
+  h1 {
+    font-size: clamp(2.4rem, 6vw, 4.4rem);
+    line-height: 1.08;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin: 0 0 2rem;
+    max-width: 58rem;
+  }
+  h1 strong { font-weight: 700; }
+  .sub {
+    font-family: var(--sans);
+    font-size: 1.3rem;
+    font-weight: 300;
+    color: var(--ink-soft);
+    margin: 0 0 0.4rem;
+    max-width: 44rem;
+  }
+  .note { font-family: var(--sans); font-size: 1rem; color: var(--ink-faint); margin: 0; }
+  .section-title { font-size: 2.6rem; font-weight: 400; margin: 0 0 0.3rem; }
+  .section-sub { font-family: var(--sans); font-size: 1.05rem; color: var(--ink-soft); margin: 0 0 2rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+    gap: 1.5rem;
+  }
+  .all { display: inline-block; margin-top: 2rem; }
+  @media (max-width: 640px) {
+    .hero { padding-top: 2rem; padding-bottom: 2.5rem; }
+    .sub { font-size: 1.1rem; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,36 @@
+---
+import Base from "../../../layouts/Base.astro"
+import { excerpt, formatDate, postsFor, t, type Lang } from "../../../lib/site"
+
+export const getStaticPaths = () => [{ params: { lang: "nl" } }, { params: { lang: "en" } }]
+const lang = Astro.params.lang as Lang
+const l = t[lang]
+const posts = await postsFor(lang)
+const other = lang === "nl" ? "en" : "nl"
+---
+
+<Base title={`${l.all} · mindwrapper`} lang={lang} alternate={`/${other}/posts/`}>
+  <section class="narrow">
+    <h1>{l.all}</h1>
+    <ol>
+      {
+        posts.map((post) => (
+          <li>
+            <span class="meta">{formatDate(post.data.date, lang)}</span>
+            <a href={`/${post.id}`}>{post.data.title}</a>
+            <p>{excerpt(post, 140)}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</Base>
+
+<style>
+  h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 400; margin: 3rem 0 2rem; }
+  ol { list-style: none; padding: 0; margin: 0; }
+  li { padding: 1.3rem 0; border-top: 1px solid var(--rule); }
+  li a { display: block; font-size: 1.55rem; color: var(--ink); line-height: 1.25; margin: 0.2rem 0 0.4rem; }
+  li a:hover { color: var(--accent); }
+  li p { margin: 0; font-family: var(--sans); font-size: 0.95rem; color: var(--ink-soft); }
+</style>

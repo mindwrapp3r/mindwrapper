@@ -1,0 +1,47 @@
+---
+import { excerpt, formatDate, t, type Entry, type Lang } from "../lib/site"
+
+interface Props {
+  post: Entry
+  lang: Lang
+}
+const { post, lang } = Astro.props
+const d = post.data
+const byAi = d.author?.toLowerCase() === "ai"
+---
+
+<a class="card" href={`/${post.id}`}>
+  <span class="kicker">{byAi ? "AI · " : ""}{d.tags.slice(0, 2).join(" · ")}</span>
+  <h3>{d.title}</h3>
+  <p>{excerpt(post)}</p>
+  <span class="meta">{formatDate(d.date, lang)} · {t[lang].readMore} →</span>
+</a>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.6rem 1.6rem 1.4rem;
+    background: var(--paper-raised);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    box-shadow: var(--shadow);
+    color: var(--ink);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .card:hover {
+    color: var(--ink);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 0.05), 0 10px 30px rgb(0 0 0 / 0.07);
+  }
+  h3 { margin: 0; font-size: 1.55rem; }
+  p {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    flex: 1;
+  }
+</style>

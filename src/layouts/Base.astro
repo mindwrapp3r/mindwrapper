@@ -1,0 +1,62 @@
+---
+import "../styles/global.css"
+import Header from "../components/Header.astro"
+import type { Lang } from "../lib/site"
+
+interface Props {
+  title: string
+  lang: Lang
+  description?: string
+  alternate?: string // URL of the same page in the other language
+}
+const { title, lang, description, alternate } = Astro.props
+const other = lang === "nl" ? "en" : "nl"
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    {alternate && <link rel="alternate" hreflang={other} href={alternate} />}
+    <link rel="alternate" type="application/rss+xml" title="mindwrapper" href="/index.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap"
+    />
+    <script is:inline>
+      // Always set data-theme: the Mermaid diagrams follow this attribute
+      let theme = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+      try {
+        theme = localStorage.getItem("theme") ?? theme
+      } catch {}
+      document.documentElement.dataset.theme = theme
+    </script>
+  </head>
+  <body>
+    <Header lang={lang} alternate={alternate} />
+    <main>
+      <slot />
+    </main>
+    <footer class="wrap site-footer meta">
+      <span>mindwrapper</span>
+      <a href="https://github.com/mindwrapp3r">GitHub</a>
+      <a href="/index.xml">RSS</a>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .site-footer {
+    display: flex;
+    gap: 1.5rem;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+    margin-top: 5rem;
+    border-top: 1px solid var(--rule);
+  }
+</style>

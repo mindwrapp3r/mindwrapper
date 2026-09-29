@@ -1,0 +1,105 @@
+---
+import { getCollection, render } from "astro:content"
+import Base from "../layouts/Base.astro"
+import { excerpt, formatDate, isPost, provenance, t, type Entry } from "../lib/site"
+
+export async function getStaticPaths() {
+  const entries = await getCollection("blog", (e) => !e.data.draft)
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }))
+}
+
+const { entry } = Astro.props as { entry: Entry }
+const { Content } = await render(entry)
+const d = entry.data
+const lang = d.lang
+const l = t[lang]
+const post = isPost(entry)
+const prov = post ? provenance(entry, lang) : null
+const alternate = d.translation ? `/${d.translation}` : undefined
+---
+
+<Base title={`${d.title} · mindwrapper`} lang={lang} description={d.description ?? excerpt(entry, 160)} alternate={alternate}>
+  <article>
+    <header class="narrow post-head">
+      {post && <span class="kicker">{l.post}{d.tags.length ? " · " + d.tags.join(" · ") : ""}</span>}
+      <h1>{d.title}</h1>
+      {post && d.description && <p class="standfirst">{d.description}</p>}
+      {
+        post && (
+          <div class="meta-row meta">
+            <span>{formatDate(d.date, lang)}</span>
+            {d.repo && <a href={d.repo}>{l.code} →</a>}
+          </div>
+        )
+      }
+    </header>
+
+    {
+      prov && (
+        <aside class="provenance">
+          <span class="kicker">{l.provenance}</span>
+          <p>
+            <strong>{prov.written}</strong>
+            {prov.roles.map((r) => ` · ${r}`)}{" "}
+            <a href={l.aboutPath}>({l.why.toLowerCase()})</a>
+          </p>
+        </aside>
+      )
+    }
+
+    <div class:list={["narrow", "prose", { "no-dropcap": !post }]}>
+      <Content />
+    </div>
+  </article>
+</Base>
+
+<style>
+  .post-head { padding-top: 3.5rem; padding-bottom: 2rem; }
+  h1 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.08;
+    margin: 0.7rem 0 1rem;
+  }
+  .standfirst {
+    font-size: 1.45rem;
+    line-height: 1.4;
+    color: var(--ink-faint);
+    margin: 0 0 1.8rem;
+  }
+  .meta-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+  }
+  .provenance {
+    max-width: 46rem;
+    margin: 0 auto 3rem;
+    padding: 1.2rem 1.6rem;
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+    background: var(--paper-raised);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    box-shadow: var(--shadow);
+  }
+  .provenance .kicker { color: var(--link); }
+  .provenance p { margin: 0; font-size: 1.05rem; color: var(--ink-soft); line-height: 1.5; }
+  .provenance strong { color: var(--ink); font-weight: 600; }
+  .no-dropcap > p:first-of-type::first-letter {
+    float: none;
+    font-size: inherit;
+    padding: 0;
+    font-weight: inherit;
+  }
+  @media (max-width: 640px) {
+    .post-head { padding-top: 1.5rem; }
+    .standfirst { font-size: 1.2rem; }
+    .provenance { grid-template-columns: 1fr; gap: 0.3rem; margin: 0 1rem 2rem; }
+  }
+</style>

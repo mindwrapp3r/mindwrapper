@@ -1,0 +1,9 @@
+---
+import Home from "../../components/Home.astro"
+import type { Lang } from "../../lib/site"
+
+export const getStaticPaths = () => [{ params: { lang: "nl" } }, { params: { lang: "en" } }]
+const lang = Astro.params.lang as Lang
+---
+
+<Home lang={lang} />
