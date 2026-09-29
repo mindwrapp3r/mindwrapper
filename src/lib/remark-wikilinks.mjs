@@ -1,7 +1,8 @@
 // Turns Obsidian wikilinks into normal links, so posts can stay Obsidian-native.
-// [[nl/over|Waarom zo?]] -> /nl/over, [[image.png|text]] -> /assets/image.png
+// [[nl/over|Meer info]] -> /nl/over, [[image.png|text]] -> /assets/image.png,
+// ![[image.png]] -> the image itself
 
-const WIKILINK = /\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g
+const WIKILINK = /(!?)\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g
 const ASSET = /\.(png|jpe?g|gif|svg|webp|pdf)$/i
 
 function href(target) {
@@ -15,11 +16,13 @@ function splitText(value) {
   let last = 0
   for (const m of value.matchAll(WIKILINK)) {
     if (m.index > last) nodes.push({ type: "text", value: value.slice(last, m.index) })
-    nodes.push({
-      type: "link",
-      url: href(m[1]),
-      children: [{ type: "text", value: (m[2] ?? m[1]).trim() }],
-    })
+    const [, bang, target, label] = m
+    const url = href(target)
+    nodes.push(
+      bang && ASSET.test(url)
+        ? { type: "image", url, alt: (label ?? "").trim() }
+        : { type: "link", url, children: [{ type: "text", value: (label ?? target).trim() }] },
+    )
     last = m.index + m[0].length
   }
   if (last < value.length) nodes.push({ type: "text", value: value.slice(last) })
