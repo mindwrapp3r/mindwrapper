@@ -25,6 +25,7 @@ import Flex from "./Flex"
 import ConditionalRender from "./ConditionalRender"
 import Provenance from "./Provenance"
 import BlogPosts from "./BlogPosts"
+import LanguageSwitch from "./LanguageSwitch"
 
 export {
   ArticleTitle,
@@ -54,4 +55,5 @@ export {
   ConditionalRender,
   Provenance,
   BlogPosts,
+  LanguageSwitch,
 }

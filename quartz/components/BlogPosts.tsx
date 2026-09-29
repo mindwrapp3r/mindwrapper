@@ -32,7 +32,6 @@ export default (({ placement }: Options) => {
           <ol>
             {posts.map((post) => {
               const date = getDate(cfg, post)
-              const translation = post.frontmatter?.translation
               const description = post.description?.replace(/^(Het probleem|The problem)\s+/i, "")
               return (
                 <li>
@@ -52,14 +51,9 @@ export default (({ placement }: Options) => {
                       </a>
                     </h3>
                     {description && <p>{description}</p>}
-                    {typeof translation === "string" && (
-                      <a
-                        class="blog-translation internal"
-                        href={resolveRelative(slug!, translation as FullSlug)}
-                      >
-                        {language === "nl" ? "Read in English →" : "Lees in het Nederlands →"}
-                      </a>
-                    )}
+                    <a class="blog-read-more internal" href={resolveRelative(slug!, post.slug!)}>
+                      {language === "nl" ? "Lees meer →" : "Read more →"}
+                    </a>
                   </article>
                 </li>
               )

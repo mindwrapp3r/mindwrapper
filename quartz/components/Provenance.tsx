@@ -2,9 +2,10 @@ import { QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import { classNames } from "../util/lang"
 import { FullSlug, resolveRelative } from "../util/path"
 
-// Shows who did what on a post, plus links to code and the other language.
+// Shows who did what on a post, plus a link to the code. The language toggle
+// lives in LanguageSwitch.
 // Driven by frontmatter: author, curated (chose the topic), edited, checked,
-// translated_by, lang, translation, repo. Explained on nl/over and en/about.
+// translated_by, lang, repo. Explained on nl/over and en/about.
 
 const labels = {
   nl: {
@@ -16,7 +17,6 @@ const labels = {
     why: "waarom?",
     about: "nl/over",
     repo: "Code op GitHub",
-    translation: "Read in English",
   },
   en: {
     written: (who: string) => `Written by ${who}`,
@@ -27,7 +27,6 @@ const labels = {
     why: "why?",
     about: "en/about",
     repo: "Code on GitHub",
-    translation: "Lees in het Nederlands",
   },
 }
 
@@ -46,7 +45,6 @@ export default (() => {
       return typeof value === "string" && value.trim() !== "" ? value.trim() : undefined
     }
     const repo = field("repo")
-    const translation = field("translation")
 
     const roles = [
       [t.curated, field("curated")],
@@ -65,12 +63,9 @@ export default (() => {
           ))}{" "}
           <a href={resolveRelative(slug, t.about as FullSlug)}>({t.why})</a>
         </p>
-        {(repo || translation) && (
+        {repo && (
           <p class="provenance-links">
-            {repo && <a href={repo}>{t.repo} →</a>}
-            {translation && (
-              <a href={resolveRelative(slug, translation as FullSlug)}>{t.translation} →</a>
-            )}
+            <a href={repo}>{t.repo} →</a>
           </p>
         )}
       </div>
