@@ -44,6 +44,18 @@ flowchart TD
 
 Op 30 september staan er **1.421 gesprekken** in één Base. Dat geeft context die anders verspreid zou liggen: bij welk onderwerp welke skill hielp, en wat er eerder al is geprobeerd. Het maandoverzicht laat zien **welke tools het meest gebruikt worden** en **hoeveel tokens** ze kosten. In september had DeepSeek Harness de meeste sessies (196), en Claude Code veruit de meeste tokens.
 
+```mermaid
+%%{init: {"themeVariables": {"xyChart": {"plotColorPalette": "#b4532a", "backgroundColor": "transparent"}}}}%%
+xychart-beta
+  title "Tokens per maand in 2026, alle tools samen (miljoenen)"
+  x-axis ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep"]
+  y-axis "Tokens (mln)" 0 --> 4000
+  bar [70, 660, 695, 503, 102, 477, 1372, 3509, 3654]
+```
+
+*Tokens zoals de exporters ze vastleggen, inclusief gecachte context: een maat voor gebruik, geen rekening.*
+
+
 En de gesprekken houden het [[nl/posts/prompt-profiel-laat-de-ai-op-jouw-niveau-antwoorden|Prompt Profiel]] actueel. Elk kwartaal kijkt een script naar de gesprekken van de afgelopen maanden: waar Michael vaak en diepgaand over praat en van bijleert, gaat het niveau omhoog. Zo past het profiel zich aan zonder dat Michael het zelf hoeft bij te houden.
 
 De les: één afgesproken formaat is meer waard dan de slimste zoekfunctie.

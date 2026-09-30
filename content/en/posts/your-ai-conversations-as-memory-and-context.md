@@ -44,6 +44,18 @@ flowchart TD
 
 On 30 September there are **1,421 conversations** in one Base. That gives context that would otherwise be scattered: which skill helped with which topic, and what has been tried before. The monthly overview shows **which tools are used most** and **how many tokens** they cost. In September DeepSeek Harness had the most sessions (196), and Claude Code by far the most tokens.
 
+```mermaid
+%%{init: {"themeVariables": {"xyChart": {"plotColorPalette": "#b4532a", "backgroundColor": "transparent"}}}}%%
+xychart-beta
+  title "Tokens per month in 2026, all tools combined (millions)"
+  x-axis ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"]
+  y-axis "Tokens (mln)" 0 --> 4000
+  bar [70, 660, 695, 503, 102, 477, 1372, 3509, 3654]
+```
+
+*Tokens as the exporters record them, including cached context: a measure of use, not a bill.*
+
+
 And the conversations keep the [[en/posts/prompt-profile-let-the-ai-answer-at-your-level|prompt profile]] up to date. Every quarter a script looks at the conversations of the past months: where Michael talks about something often and in depth, and learns from it, the level goes up. That way the profile adapts without Michael having to maintain it.
 
 The lesson: one agreed format is worth more than the smartest search.
