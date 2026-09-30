@@ -11,6 +11,7 @@ const blog = defineCollection({
     .object({
       title: z.string(),
       description: z.string().optional().nullable(),
+      type: z.string().optional().nullable(), // kind of post, e.g. "experiment"; shown above the title
       date: z.coerce.date().optional(),
       author: who,
       curated: who,
