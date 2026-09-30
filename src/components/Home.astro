@@ -1,7 +1,7 @@
 ---
 import Base from "../layouts/Base.astro"
 import PostCard from "./PostCard.astro"
-import { postsFor, t, type Lang } from "../lib/site"
+import { postsFor, t, typeOf, type Lang } from "../lib/site"
 
 interface Props {
   lang: Lang
@@ -9,6 +9,10 @@ interface Props {
 const { lang } = Astro.props
 const l = t[lang]
 const posts = await postsFor(lang)
+// One section per kind of post, Mind first; a section without posts stays hidden
+const sections = ["mind", "experiment"]
+  .map((type) => ({ type, ...l.sections[type], posts: posts.filter((p) => typeOf(p) === type) }))
+  .filter((section) => section.posts.length > 0)
 const other = lang === "nl" ? "en" : "nl"
 ---
 
@@ -19,14 +23,18 @@ const other = lang === "nl" ? "en" : "nl"
     <p class="note">{l.subNote} <a href={l.aboutPath}>{l.why} →</a></p>
   </section>
 
-  <section class="wrap">
-    <h2 class="section-title">{l.latest}</h2>
-    <p class="section-sub">{l.latestSub}</p>
-    <div class="grid">
-      {posts.slice(0, 6).map((post) => <PostCard post={post} lang={lang} />)}
-    </div>
-    {posts.length > 6 && <a class="all meta" href={`/${lang}/posts/`}>{l.all} →</a>}
-  </section>
+  {
+    sections.map((section) => (
+      <section class="wrap section">
+        <h2 class="section-title">{section.title}</h2>
+        <p class="section-sub">{section.sub}</p>
+        <div class="grid">
+          {section.posts.slice(0, 6).map((post) => <PostCard post={post} lang={lang} />)}
+        </div>
+        {section.posts.length > 6 && <a class="all meta" href={`/${lang}/posts/`}>{l.all} →</a>}
+      </section>
+    ))
+  }
 </Base>
 
 <style>
@@ -57,6 +65,7 @@ const other = lang === "nl" ? "en" : "nl"
     gap: 1.5rem;
   }
   .all { display: inline-block; margin-top: 2rem; }
+  .section + .section { margin-top: 4.5rem; }
   @media (max-width: 640px) {
     .hero { padding-top: 2rem; padding-bottom: 2.5rem; }
     .sub { font-size: 1.1rem; }

@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from "astro:content"
 import Base from "../layouts/Base.astro"
-import { excerpt, formatDate, isPost, provenance, t, type Entry } from "../lib/site"
+import { excerpt, formatDate, isPost, provenance, seriesOf, t, type Entry } from "../lib/site"
 
 export async function getStaticPaths() {
   const entries = await getCollection("blog", (e) => !e.data.draft)
@@ -16,6 +16,10 @@ const l = t[lang]
 const post = isPost(entry)
 const prov = post ? provenance(entry, lang) : null
 const alternate = d.translation ? `/${d.translation}` : undefined
+const parts = await seriesOf(entry)
+const here = parts.findIndex((p) => p.id === entry.id)
+const prev = here > 0 ? parts[here - 1] : undefined
+const next = here >= 0 && here < parts.length - 1 ? parts[here + 1] : undefined
 ---
 
 <Base title={`${d.title} · mindwrapper`} lang={lang} description={d.description ?? excerpt(entry, 160)} alternate={alternate}>
@@ -28,6 +32,7 @@ const alternate = d.translation ? `/${d.translation}` : undefined
         post && (
           <div class="meta-row meta">
             <span>{formatDate(d.date, lang)}</span>
+            {d.series && d.part && <span class="series">{l.series}: {d.series} · {l.part(d.part, parts.length)}</span>}
             {d.repo && <a href={d.repo}>{l.code} →</a>}
           </div>
         )
@@ -50,6 +55,15 @@ const alternate = d.translation ? `/${d.translation}` : undefined
     <div class:list={["narrow", "prose", { "no-dropcap": !post }]}>
       <Content />
     </div>
+
+    {
+      (prev || next) && (
+        <nav class="narrow series-nav meta" aria-label={`${l.series}: ${d.series}`}>
+          {prev ? <a href={`/${prev.id}`}>← {l.previous}: {prev.data.title}</a> : <span />}
+          {next && <a class="next" href={`/${next.id}`}>{l.next}: {next.data.title} →</a>}
+        </nav>
+      )
+    }
   </article>
 </Base>
 
@@ -75,6 +89,17 @@ const alternate = d.translation ? `/${d.translation}` : undefined
     padding-top: 1rem;
     border-top: 1px solid var(--rule);
   }
+  .series { color: var(--accent); }
+  .series-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.95rem;
+  }
+  .series-nav .next { text-align: right; }
   .provenance {
     max-width: 46rem;
     margin: 0 auto 3rem;

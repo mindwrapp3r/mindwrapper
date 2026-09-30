@@ -11,7 +11,9 @@ const blog = defineCollection({
     .object({
       title: z.string(),
       description: z.string().optional().nullable(),
-      type: z.string().optional().nullable(), // kind of post, e.g. "experiment"; shown above the title
+      type: z.string().optional().nullable(), // kind of post: "experiment" or "mind"; shown above the title
+      series: z.string().trim().optional().nullable(), // name of a series, shown as is
+      part: z.number().int().positive().optional().nullable(), // position within the series
       date: z.coerce.date().optional(),
       author: who,
       curated: who,
@@ -27,7 +29,8 @@ const blog = defineCollection({
       aliases: z.array(z.string()).optional(),
     })
     // The label on the site must be true: either edited or checked, never both
-    .refine((p) => !(p.edited && p.checked), "Vul edited óf checked in, niet allebei"),
+    .refine((p) => !(p.edited && p.checked), "Vul edited óf checked in, niet allebei")
+    .refine((p) => !p.series || p.part, "Een post in een reeks heeft ook part: <nummer> nodig"),
 })
 
 export const collections = { blog }
