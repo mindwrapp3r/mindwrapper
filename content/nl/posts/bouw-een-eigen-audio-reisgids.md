@@ -1,6 +1,7 @@
 ---
 title: Bouw een eigen audio-reisgids
 date: 2026-09-28
+type: experiment
 author: AI
 curated: Mindwrapper
 edited: Mindwrapper
@@ -19,7 +20,7 @@ draft: false
 
 Michael plande een zakenreis naar Málaga met de apps van Claude en ChatGPT. Die keuze voor de apps was bewust: voice mode werkt perfect als je in de auto zit of door een stadscentrum loopt. Dat ging verrassend goed, maar vier dingen kon zo'n chat niet. Het wist niet wie er reist, het had geen idee welke plekken al in de notities stonden, het koppelde niets aan eerdere reisverslagen, en de coördinaten van drie restaurants lagen 90 tot 120 meter naast de echte deur.
 
-## Wat we deden
+## De oplossing
 
 We bouwden een *skill*: een vaste werkwijze die de AI laadt zodra het over een reis gaat.
 
@@ -38,13 +39,13 @@ flowchart TD
   L -->|"nieuwe ratings"| PL
 ```
 
-## Wat nog schuurt
-
-Voice mode van OpenAI en Anthropic kan nog niet op een veilige manier rechtstreeks met de vault praten. Dus werkt het nu met een kopie: het exportbestand gaat mee als projectkennis, en verandert het plan, dan moet je opnieuw exporteren. Dat werkt, maar het is geen echte koppeling.
-
-## Waar het om draaide
+## Wat het oplevert
 
 Het model was nooit het probleem. Het verschil zat in **context** (wie reist er, wat viel eerder goed) en in **verificatie** (klopt dit punt echt). Allebei leg je één keer vast, en daarna krijg je ze bij elke reis gratis mee.
+
+## Wat nog niet werkt
+
+Voice mode van OpenAI en Anthropic kan nog niet op een veilige manier rechtstreeks met de vault praten. Dus werkt het nu met een kopie: het exportbestand gaat mee als projectkennis, en verandert het plan, dan moet je opnieuw exporteren. Dat werkt, maar het is geen echte koppeling.
 
 ## Zelf proberen
 

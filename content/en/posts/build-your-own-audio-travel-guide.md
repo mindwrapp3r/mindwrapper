@@ -1,6 +1,7 @@
 ---
 title: Build your own audio travel guide
 date: 2026-09-28
+type: experiment
 author: AI
 curated: Mindwrapper
 edited: Mindwrapper
@@ -19,7 +20,7 @@ draft: false
 
 Michael planned a business trip to Málaga with the Claude and ChatGPT apps. The apps were a deliberate choice: voice mode works perfectly when you're driving or walking through a city centre. It went surprisingly well, but a chat like that couldn't do four things. It didn't know who was travelling, it had no idea which places were already in the notes, it didn't link anything to earlier travel logs, and the coordinates of three restaurants were 90 to 120 metres off the actual door.
 
-## What we did
+## The solution
 
 We built a *skill*: a fixed way of working that the AI loads whenever a trip comes up.
 
@@ -38,13 +39,13 @@ flowchart TD
   L -->|"new ratings"| PL
 ```
 
-## What still chafes
-
-Voice mode from OpenAI and Anthropic can't yet talk directly to the vault in a safe way. So for now it works with a copy: the export goes in as project knowledge, and if the plan changes, you export again. It works, but it isn't a real connection.
-
-## What it came down to
+## What it gets you
 
 The model was never the problem. The difference was **context** (who is travelling, what worked before) and **verification** (is this point actually right). You capture both once, and then you get them for free on every trip.
+
+## What doesn't work yet
+
+Voice mode from OpenAI and Anthropic can't yet talk directly to the vault in a safe way. So for now it works with a copy: the export goes in as project knowledge, and if the plan changes, you export again. It works, but it isn't a real connection.
 
 ## Try it yourself
 

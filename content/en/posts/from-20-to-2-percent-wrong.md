@@ -1,6 +1,7 @@
 ---
 title: "Pebble Index: from 20% to 2% wrong, thanks to Jev"
 date: 2026-09-28
+type: experiment
 author: AI
 curated: Mindwrapper
 edited: Mindwrapper
@@ -19,7 +20,7 @@ draft: false
 
 Michael wears a Pebble Index 01: a ring you speak a short note into. The first word decides where it goes: "taak" (task) becomes a task, "gedachte" (thought) a journal note, "boodschap" (shopping) a line on the shopping list. But speech recognition doesn't always hear right. "Taak" becomes "paak", and the note lands in the wrong place. A word list of known mishearings caught some of that, but it only learned about a mistake after it had gone wrong once. **One in five notes went wrong.**
 
-## What we did
+## The solution
 
 On 15 September TypeSafe released Jev: a small model that doesn't write text, but picks from a fixed list of options and returns a probability. Three days later it was in the ring. The question to Jev is simple: *which of these seven routes is this, or none?*
 
@@ -35,6 +36,8 @@ flowchart TD
 
 *The full diagram (in Dutch), with every way to dictate and how the system learns each week: [[spraaknotities-jev.png|view full size]].*
 
+## What it gets you
+
 On 59 hand-checked sentences:
 
 | | Right | Wrong |
@@ -43,8 +46,6 @@ On 59 hand-checked sentences:
 | With Jev added | 58 of 59 | 2% |
 
 And it's fast and dirt cheap. An answer typically arrives in **250 milliseconds**, and that one request carries two questions at once: where does this belong, and is there a misheard technical term in it? All 59 test calls together cost **$0.0021**. A thousand spoken notes cost a few cents.
-
-## What it came down to
 
 The code stays in charge; the model answers one precise question. Because Jev only picks from what the code offers, it can't make anything up: at worst it picks wrong, and that you can measure. If Jev is unavailable, the old list decides again, so the system never stalls. A small, fast model like this doesn't need to be smarter than the big ones. It needs to sit in the right place.
 
