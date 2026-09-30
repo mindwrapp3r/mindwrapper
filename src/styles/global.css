@@ -147,3 +147,37 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.15; col
   .prose { font-size: 1.12rem; }
   .wrap, .narrow { padding: 0 1rem; }
 }
+
+/* Mermaid draws with its own palette (purple in light mode). Recolour the
+   rendered SVG with the site's tokens, so diagrams follow the theme toggle.
+   !important is needed: Mermaid scopes its styles to the diagram's id. */
+.prose .mermaid svg .node rect,
+.prose .mermaid svg .node polygon,
+.prose .mermaid svg .node circle,
+.prose .mermaid svg .node ellipse,
+.prose .mermaid svg .node path {
+  fill: var(--paper) !important;
+  stroke: var(--accent) !important;
+  stroke-width: 1.2px !important;
+}
+.prose .mermaid svg .nodeLabel,
+.prose .mermaid svg .edgeLabel,
+.prose .mermaid svg .label,
+.prose .mermaid svg text {
+  color: var(--ink) !important;
+  fill: var(--ink) !important;
+}
+.prose .mermaid svg .edgeLabel,
+.prose .mermaid svg .edgeLabel p,
+.prose .mermaid svg .labelBkg {
+  background-color: var(--paper-raised) !important;
+}
+.prose .mermaid svg .flowchart-link,
+.prose .mermaid svg .edgePath .path {
+  stroke: var(--ink-faint) !important;
+}
+.prose .mermaid svg marker path,
+.prose .mermaid svg .arrowheadPath {
+  fill: var(--ink-faint) !important;
+  stroke: var(--ink-faint) !important;
+}
