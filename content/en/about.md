@@ -32,4 +32,6 @@ I don't have the time to write every week, but I do come across enough that's wo
 - Where it adds something, **the code or skill on GitHub**.
 - **A prompt to try it yourself.** Most people use AI anyway, so rather than copying my setup, you hand the prompt to your own assistant and build your own version.
 
+I count visitors with [GoatCounter](https://www.goatcounter.com): no cookies and no personal data, just to see which posts get read.
+
 Every post is available in [[nl/over|Dutch]] and English.

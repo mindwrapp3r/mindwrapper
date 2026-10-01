@@ -32,4 +32,6 @@ Ik heb de tijd niet om elke week te schrijven, maar ik kom wel genoeg tegen dat 
 - Als het iets toevoegt, **de code of skill op GitHub**.
 - **Een prompt om het zelf te doen.** De meeste mensen gebruiken toch AI, dus in plaats van mijn opzet over te nemen geef je de prompt aan je eigen assistent en bouw je je eigen versie.
 
+Ik tel bezoekers met [GoatCounter](https://www.goatcounter.com): zonder cookies en zonder persoonsgegevens, alleen om te zien welke posts gelezen worden.
+
 Elke post staat in het Nederlands en in het [[en/about|Engels]].
