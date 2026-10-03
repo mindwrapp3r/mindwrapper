@@ -6,10 +6,12 @@ export type Entry = CollectionEntry<"blog">
 export const t = {
   nl: {
     heroName: "Mindwrapper",
-    hero: "korte posts over experimenteren met AI en wat het oplevert.",
-    sub: "Dingen waar ik mijn verstand omheen probeer te vouwen: tools bouwen, Obsidian automatiseren en meten wat werkt.",
+    hero: ": elastisch denken, accepteren, sneller leren, meer bouwen.",
+    sub: "Mind gaat over hoe ik mijn brein elastisch houd als alles verandert. Daardoor accepteer en leer ik nieuwe dingen sneller, en dat zie je terug in de Experimenten: AI-tools bouwen, Obsidian automatiseren en meten wat werkt.",
+    subHtml: "<strong>Mind</strong> gaat over hoe ik mijn brein elastisch houd als alles verandert. Daardoor accepteer en leer ik nieuwe dingen sneller, en dat zie je terug in de <strong>Experimenten</strong>: AI-tools bouwen, Obsidian automatiseren en meten wat werkt.",
     subNote: "Geschreven met AI.",
     why: "Meer info hierover",
+    whyAnchor: "wie-schrijft-dit",
     all: "Alle posts",
     readMore: "Lees meer",
     about: "Over",
@@ -25,7 +27,7 @@ export const t = {
     post: "Post",
     types: { experiment: "Experiment", mind: "Mind" } as Record<string, string>,
     sections: {
-      mind: { title: "Mind", sub: "Je verstand soepel houden om met verandering om te gaan" },
+      mind: { title: "Mind", sub: "Je brein elastisch houden om met verandering om te gaan" },
       experiment: { title: "Experimenten", sub: "Het probleem, de oplossing en hoe je het zelf kunt proberen" },
     } as Record<string, { title: string; sub: string }>,
     series: "Reeks",
@@ -38,10 +40,12 @@ export const t = {
   },
   en: {
     heroName: "Mindwrapper",
-    hero: "short posts about experimenting with AI and what it gets you.",
-    sub: "Things I'm trying to wrap my mind around: building tools, automating Obsidian and measuring what works.",
+    hero: ": an elastic mind, acceptance, faster learning, more building.",
+    sub: "Mind is about keeping my brain elastic when everything changes. That lets me accept and learn new things faster, which shows in the Experiments: building AI tools, automating Obsidian and measuring what works.",
+    subHtml: "<strong>Mind</strong> is about keeping my brain elastic when everything changes. That lets me accept and learn new things faster, which shows in the <strong>Experiments</strong>: building AI tools, automating Obsidian and measuring what works.",
     subNote: "Written with AI.",
     why: "More about this",
+    whyAnchor: "who-writes-this",
     all: "All posts",
     readMore: "Read more",
     about: "About",
@@ -57,7 +61,7 @@ export const t = {
     post: "Post",
     types: { experiment: "Experiment", mind: "Mind" } as Record<string, string>,
     sections: {
-      mind: { title: "Mind", sub: "Keeping your mind flexible enough to deal with change" },
+      mind: { title: "Mind", sub: "Keeping your mind elastic enough to deal with change" },
       experiment: { title: "Experiments", sub: "The problem, the solution and how to try it yourself" },
     } as Record<string, { title: string; sub: string }>,
     series: "Series",
