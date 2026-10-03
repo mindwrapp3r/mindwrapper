@@ -22,7 +22,14 @@ const prev = here > 0 ? parts[here - 1] : undefined
 const next = here >= 0 && here < parts.length - 1 ? parts[here + 1] : undefined
 ---
 
-<Base title={`${d.title} · mindwrapper`} lang={lang} description={d.description ?? excerpt(entry, 160)} alternate={alternate}>
+<Base
+  title={`${d.title} · mindwrapper`}
+  lang={lang}
+  description={d.description ?? excerpt(entry, 160)}
+  alternate={alternate}
+  image={post ? `/og/${entry.id}.png` : undefined}
+  published={post ? d.date : undefined}
+>
   <article data-pagefind-body>
     <header class="narrow post-head">
       {post && <span class="kicker">{(d.type && l.types[d.type]) ?? l.post}{d.tags.length ? " · " + d.tags.join(" · ") : ""}</span>}

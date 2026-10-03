@@ -37,6 +37,10 @@ export const t = {
     theme: "Donker of licht",
     search: "Zoeken",
     searchPath: "/nl/zoeken",
+    ogFooter: "Blog over elastisch denken en bouwen met AI",
+    filterAll: "Alles",
+    filterLabel: "Toon",
+    rssAll: "alles",
   },
   en: {
     heroName: "Mindwrapper",
@@ -71,8 +75,18 @@ export const t = {
     theme: "Dark or light",
     search: "Search",
     searchPath: "/en/search",
+    ogFooter: "A blog about an elastic mind and building with AI",
+    filterAll: "All",
+    filterLabel: "Show",
+    rssAll: "everything",
   },
 } as const
+
+// Feed file per kind of post: /<lang>/<name>.xml
+export const feeds: Record<Lang, Record<string, string>> = {
+  nl: { mind: "mind", experiment: "experimenten" },
+  en: { mind: "mind", experiment: "experiments" },
+}
 
 export const isPost = (e: Entry) => e.id.includes("/posts/")
 

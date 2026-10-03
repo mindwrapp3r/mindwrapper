@@ -1,16 +1,25 @@
 ---
 import "../styles/global.css"
 import Header from "../components/Header.astro"
-import type { Lang } from "../lib/site"
+import { feeds, t, type Lang } from "../lib/site"
 
 interface Props {
   title: string
   lang: Lang
   description?: string
   alternate?: string // URL of the same page in the other language
+  canonical?: string // path, when the page lives at more than one URL (/ and /nl/)
+  image?: string // path of the share image; defaults to the one for the language
+  published?: Date // posts only: makes the page an og:type article
 }
-const { title, lang, description, alternate } = Astro.props
+const { title, lang, description, alternate, canonical, image, published } = Astro.props
 const other = lang === "nl" ? "en" : "nl"
+const l = t[lang]
+const site = Astro.site!
+// The build sees /nl/over.html; the site links (and GitHub Pages serves) /nl/over
+const url = new URL(canonical ?? Astro.url.pathname.replace(/\.html$/, ""), site).href
+const ogImage = new URL(image ?? `/og/${lang}.png`, site).href
+const locale = { nl: "nl_NL", en: "en_GB" }
 ---
 
 <!doctype html>
@@ -22,11 +31,31 @@ const other = lang === "nl" ? "en" : "nl"
     <meta name="color-scheme" content="light dark" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
-    {alternate && <link rel="alternate" hreflang={other} href={alternate} />}
+    <link rel="canonical" href={url} />
+    <link rel="alternate" hreflang={lang} href={url} />
+    {alternate && <link rel="alternate" hreflang={other} href={new URL(alternate, site).href} />}
+    <meta property="og:site_name" content="mindwrapper" />
+    <meta property="og:title" content={title.replace(/ · mindwrapper$/, "")} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={url} />
+    <meta property="og:type" content={published ? "article" : "website"} />
+    <meta property="og:locale" content={locale[lang]} />
+    {alternate && <meta property="og:locale:alternate" content={locale[other]} />}
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title.replace(/ · mindwrapper$/, "")} />
+    {published && <meta property="article:published_time" content={published.toISOString()} />}
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="alternate" type="application/rss+xml" title="mindwrapper" href="/index.xml" />
+    {
+      Object.entries(feeds[lang]).map(([type, name]) => (
+        <link rel="alternate" type="application/rss+xml" title={`mindwrapper · ${l.sections[type].title}`} href={`/${lang}/${name}.xml`} />
+      ))
+    }
     <!-- Visitor counts: GoatCounter, no cookies, no personal data. It skips localhost by itself -->
     <script is:inline data-goatcounter="https://mindwrapper.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -53,7 +82,11 @@ const other = lang === "nl" ? "en" : "nl"
       <span>mindwrapper</span>
       <a href={lang === "nl" ? "/nl/over" : "/en/about"}>{lang === "nl" ? "Over" : "About"}</a>
       <a href="https://github.com/mindwrapp3r">GitHub</a>
-      <a href="/index.xml">RSS</a>
+      <span class="feeds">
+        RSS:
+        <a href="/index.xml">{l.rssAll}</a>
+        {Object.entries(feeds[lang]).map(([type, name]) => <a href={`/${lang}/${name}.xml`}>{l.sections[type].title}</a>)}
+      </span>
     </footer>
   </body>
 </html>
@@ -66,5 +99,7 @@ const other = lang === "nl" ? "en" : "nl"
     padding-bottom: 3rem;
     margin-top: 5rem;
     border-top: 1px solid var(--rule);
+    flex-wrap: wrap;
   }
+  .feeds { display: inline-flex; gap: 0.6rem; }
 </style>

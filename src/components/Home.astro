@@ -16,7 +16,7 @@ const sections = ["mind", "experiment"]
 const other = lang === "nl" ? "en" : "nl"
 ---
 
-<Base title="mindwrapper" lang={lang} description={l.sub} alternate={`/${other}/`}>
+<Base title="mindwrapper" lang={lang} description={l.sub} alternate={`/${other}/`} canonical={`/${lang}/`}>
   <section class="wrap hero">
     <h1><strong>{l.heroName}</strong>{l.hero}</h1>
     <p class="sub" set:html={l.subHtml} />
@@ -31,7 +31,7 @@ const other = lang === "nl" ? "en" : "nl"
         <div class="grid">
           {section.posts.slice(0, 6).map((post) => <PostCard post={post} lang={lang} />)}
         </div>
-        {section.posts.length > 6 && <a class="all meta" href={`/${lang}/posts/`}>{l.all} →</a>}
+        {section.posts.length > 6 && <a class="all meta" href={`/${lang}/posts/#${section.type}`}>{l.all} →</a>}
       </section>
     ))
   }
